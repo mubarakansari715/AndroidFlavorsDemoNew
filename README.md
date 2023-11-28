@@ -2,7 +2,9 @@
 
 New syntax of adding signingConfigs and productFlavors
 
- signingConfigs {
+1. # signingConfigs
+   
+`  signingConfigs {
 
         create("DEBUG") {
             storeFile = file("${rootDir}/development_keystore.jks")
@@ -17,9 +19,11 @@ New syntax of adding signingConfigs and productFlavors
             keyAlias = "production_keystore"
             keyPassword = "123456"
         }
-    }
+    }`
 
-    flavorDimensions += "default"
+3. # Add productFlavors
+   
+  `  flavorDimensions += "default"
 
     productFlavors {
 
@@ -43,4 +47,13 @@ New syntax of adding signingConfigs and productFlavors
                 buildConfigField("String","BaseURL", project.findProperty("PROD_BASE_URL").toString())
             }
         }
-    }
+    }`
+
+
+4. # Add in project: gradle.properties
+   
+#DEVELOPMENT URL
+DEV_BASE_URL="https://dev.example.com"
+
+#PRODUCTION URL
+PROD_BASE_URL="https://prod.example.com"
