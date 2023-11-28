@@ -26,6 +26,32 @@ android {
         }
     }
 
+    flavorDimensions += "default"
+
+    productFlavors {
+
+        create("dev") {
+            applicationIdSuffix = ".dev"
+        }
+
+        create("prod") {
+            dimension = "default"
+        }
+    }
+
+    android.applicationVariants.all {
+
+        when (flavorName) {
+            "dev" -> {
+                buildConfigField("String","BaseURL", project.findProperty("DEV_BASE_URL").toString())
+            }
+
+            "prod" -> {
+                buildConfigField("String","BaseURL", project.findProperty("PROD_BASE_URL").toString())
+            }
+        }
+    }
+
     buildTypes {
 
         debug {
@@ -48,6 +74,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
     }
 }
 
