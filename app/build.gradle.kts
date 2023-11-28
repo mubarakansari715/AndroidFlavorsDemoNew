@@ -17,13 +17,29 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = File("${rootDir}/keystore_androidflavors.jks")
+            storePassword = "123456"
+            keyAlias = "androidflavors"
+            keyPassword = "123456"
+        }
+    }
+
     buildTypes {
+
+        debug {
+            isDebuggable = true
+        }
+
         release {
+            isDebuggable = false
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs["release"]
         }
     }
     compileOptions {
